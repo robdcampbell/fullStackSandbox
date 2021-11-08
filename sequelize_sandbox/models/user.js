@@ -10,9 +10,21 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+
+    // Using to override the return value of user ID
+    toJSON() {
+      return {
+        ...this.get(),
+        id: undefined,
+      };
+    }
   }
   User.init(
     {
+      uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,

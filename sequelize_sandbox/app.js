@@ -21,9 +21,34 @@ app.post("/users", async (req, res) => {
   }
 });
 
+app.get("/users", async (req, res) => {
+  try {
+    // Model.findAll() will retrieve all of a certain model
+    const users = await User.findAll();
+    return res.json(users);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: "Something went wrong!" });
+  }
+});
+app.get("/users/:uuid", async (req, res) => {
+  try {
+    // Model.findOne()
+    const uuid = req.params.uuid;
+    const user = await User.findOne({
+      where: { uuid },
+    });
+    return res.json(user);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: "Something went wrong!" });
+  }
+});
+
 app.listen(PORT, async () => {
   console.log(`Listening on http://localhost:${PORT}`);
   // Syncs the models listed in models directory to populate tables in the DB
-  await sequelize.sync({ force: true });
-  console.log("Database Synced!");
+  // await sequelize.sync({ force: true });
+  await sequelize.authenticate();
+  console.log("Database Connected!");
 });
