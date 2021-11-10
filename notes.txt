@@ -1,8 +1,14 @@
 
--- Sequelize commands: 
+-- Sequelize CLI commands: 
     sequelize db: create
     sequelize db: drop
     sequelize db: migrate
+    sequelize model:generate --name ModelName --attributes attribute:DataTypes
+
+-- Sequelize methods
+    Model.create()
+    Model.findAll()
+    Model.findOne( where{name:value})
     
 
 ** User model: 
